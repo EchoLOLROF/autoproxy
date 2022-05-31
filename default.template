@@ -1,0 +1,4 @@
+location ${PATH} {
+    include proxy.conf;
+    proxy_pass http://localhost:${PORT}${DEST};
+}
