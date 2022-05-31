@@ -15,7 +15,7 @@ services:
       - VIRTUAL_PATH=^~/whoami/
 ```
 ```bash
-docker-compose up
+docker-compose up -d
 python generate_conf.py > /nginx-config-path/nginx.conf
 service nginx reload
 ```
@@ -26,6 +26,7 @@ I'm ab0297418e72
 ```
 
 autoproxy提供了默认的模板[default.template](default.template)
+
 environment需要配置
 - VIRTUAL_PORT 为需要反向代理的服务的端口号
 - VIRTUAL_PATH 为需要配置的二级目录路径
@@ -33,6 +34,7 @@ environment需要配置
 
 # 扩展
 如果需要自定义模板，则新增template后缀的文件，template使用python string中的[Template语法](https://docs.python.org/3/library/string.html#template-strings)
+
 例如新增test.template
 ```template
 location ${PATH} {
@@ -42,6 +44,7 @@ location ${PATH} {
 }
 ```
 在docker container的environment中配置`VIRTUAL_TEMPLATE=test`，因上述模板需要`${REWRITE}`变量，则需要在environment中配置`VIRTUAL_REWRITE`
+
 执行`python generate_conf.py > /nginx-config-path/nginx.conf`即可生成新的配置
 
 # Thanks
